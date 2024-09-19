@@ -1,0 +1,21 @@
+# Use root/example as user/password credentials
+version: '3.8'
+volumes:
+  data:
+    external: true
+
+services:
+  mysql:
+    image: mysql:9.0.1
+    restart: always
+    container_name: mysql
+    user: "1000"
+    ports:
+      - "3360:3360"
+      - "3306:3306"
+    volumes:
+      - ./data:/docker-entrypoint-initdb.d
+    command: --secure-file-priv=''
+    environment:
+      MYSQL_ROOT_PASSWORD: toor
+      MYSQL_DATABASE: scenario_uber
